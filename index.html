@@ -226,6 +226,30 @@
       box-shadow: 0 8px 22px rgba(139, 32, 49, 0.32);
     }
   </style>
+<div id="login">
+    <h2>Vstup na svatební web</h2>
+    <p>Zadejte heslo uvedené na pozvánce.</p>
+
+    <input type="password" id="pwd">
+    <button onclick="checkPassword()">Vstoupit</button>
+</div>
+
+<div id="content" style="display:none;">
+    <!-- celý obsah webu -->
+</div>
+
+<script>
+function checkPassword() {
+    const password = "ANOMisaPeters2027";
+
+    if (document.getElementById("pwd").value === password) {
+        document.getElementById("login").style.display = "none";
+        document.getElementById("content").style.display = "block";
+    } else {
+        alert("Nesprávné heslo");
+    }
+}
+</script>
 </head>
 
 <body>
