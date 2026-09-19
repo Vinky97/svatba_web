@@ -1,0 +1,51 @@
+{
+  "site": {
+    "title": "Míša & Peters — Svatební pozvánka",
+    "language": "cs",
+    "theme_color": "#7C3AED",
+    "hero_quote": "S radostí vás zveme na náš svatební den.",
+    "welcome_text": "Vítejte na našem svatebním webu!", 
+    "welcome_text2": "Společně píšeme novou kapitolu našeho příběhu a budeme nesmírně šťastní, když u toho budete s námi.", 
+    "welcome_text3": "Rozhodli jsme se říct si své „ANO“ a oslavit naši lásku v kruhu těch nejbližších – tedy s vámi." ,
+    "welcome_text4": "Na těchto stránkách najdete všechny důležité informace o svatebním dni, od místa konání a časového harmonogramu až po ubytování a tipy na svatební dary.", 
+    "welcome_text5": "Moc se těšíme, až s vámi všemi oslavíme náš velký den!", 
+    "welcome_text6": "S láskou"
+  },
+  "couple": {
+    "bride_name": "Míša",
+    "groom_name": "Peters",
+    "hashtag": "#MisaAPetr2027"
+  },
+  "wedding_date_iso": "2027-06-05"
+ 
+  ,
+  "wedding": {
+    "date_display": "Sobota 5. června 2027",
+    "ceremony_time": "12:00",
+    "reception_time": "14:00",
+    "end_time": "02:00",
+    "timezone": "Europe/Prague"
+  },
+  "ubytovani":{
+    "info": "Na místě bude k dispozici ubytování pro celou kapacitu hostů. Prosíme o co nejdřívější kontakt v rámci Dotazníku umístěném na konci stránky, zda budete chtít využít ubytování na místě akce. Je nutné vás rozdělit do volných pokojů dle jejich kapacity.",
+    "hrazeno": "Ubytování je hrazeno pouze nejbližší rodině!",
+    "cena": "790 Kč se snídaní na noc",
+    "den_predem": "Ubytovaní na místě je možné i den před svatbou. Nevěsta i ženich budou již na místě přítomny. Pokud si s námi chcete udělat hezký večer a posedět, nechcete následující den spěchat či rádi pomůžete nervozní nevěstě s přípravou místa jste srdečně zváni."
+  }
+  ,
+  "locations": {
+    "ceremony": {
+      "name": "Zámecký dvůr Černousy",
+      "address": "Černousy 50, 46373 Černousy",
+      "map_query": "Zámecký dvůr Černousy",
+      "parking_info": "Z důvodů plánu konání obřadu venku, nebude využito pro parkování hlavní parkoviště areálu. Můžete však využít parkování na druhém parkovišti v okolí sýpek. Od hlavního parkoviště budete navedeni pomocí šipek.",
+      "doprava_info": "Doprava na svatbu je vlastní. <br> Do Černous se dostanete i pohodlně přímým vlakem z Liberce. Na vlakovém nádraží v Černousech vás po předchozí domluvě může někdo vyzvednou.<br> Pokud se z nějakého důvodu nemůžete dopravit po vlastní ose, dejte nám vědět v Dotazníku na konci stránky a zajistíme spolujízdu s někým z našich hostů.",
+      "thanks": "Děkujeme.",
+      "doprava_odjezd": "Z důvodu možného ubytování přímo na místě svatby není aktuálně zařízená jakákoliv doprava z místa akce."
+    }
+    },
+  "rsvp": {
+    "deadline_display": "do 15. února 2026",
+    "odkaz": ""
+  }
+}

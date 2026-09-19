@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Míša & Peters — Svatební pozvánka</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #f7f3ee;
+      --card-bg: #ffffff;
+      --text: #695a51;
+      --muted: #8e8076;
+      --burgundy: #8b2031;
+      --burgundy-hover: #6d1725;
+      --gold-border: rgba(140, 32, 49, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Libre Baskerville", Georgia, serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    /* --- HLAVNÍ SEKCE (HERO) --- */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 20px;
+      position: relative;
+      background-color: #f7f3ee;
+      background-image: 
+        linear-gradient(rgba(247, 243, 238, 0.88), rgba(247, 243, 238, 0.88)),
+        url("kyticka.jpg");
+      background-size: cover;
+      background-position: center 25%;
+    }
+
+    .hero-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .headline {
+      font-family: "Great Vibes", cursive;
+      font-size: clamp(4rem, 8vw, 6.6rem);
+      color: var(--burgundy);
+      margin-bottom: 16px;
+      line-height: 1;
+    }
+
+    .names {
+      font-family:"Cormorant Garamond",serif;
+      font-size:clamp(2rem,3.6vw,3.1rem);
+      color:var(--burgundy);
+      margin-bottom:18px;
+    }
+
+    .names span {
+      margin: 0 10px;
+    }
+
+    .countdown {
+      font-size:1.05rem;
+      color:#8a7f76;
+      margin-bottom:26px
+    
+    }
+
+    .countdown strong {
+      font-size:clamp(2rem,4vw,3rem);
+      color:var(--burgundy)
+    }
+
+    .when-where {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: var(--text);
+    }
+
+    .when-where strong {
+      color: var(--burgundy);
+      font-size: 1.15rem;
+    }
+
+    /* --- OBSAHOVÁ SEKCE --- */
+    .content {
+      max-width: 760px;
+      margin: 40px auto 80px;
+      padding: 0 24px;
+      text-align: center;
+    }
+
+    .section-block {
+      padding: 40px 10px;
+      background: transparent;
+    }
+
+    .venue-image {
+  width: 100%;
+  max-width: 700px;
+  display: block;
+  margin: 30px auto 0;
+  border-radius: 4px;
+  border: 8px solid white;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+/* Tenká decentní dělicí linka pod sekcí */
+    .section-divider {
+  width: 85%;
+  max-width: 600px;
+  height: 1px;
+  margin: 30px auto;
+  border: none;
+
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(139,32,49,0.35),
+    rgba(139,32,49,0.35),
+    transparent
+  );
+}
+  
+    h2 {
+      margin: 0 0 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      font-size: 2rem;
+      color: var(--burgundy);
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 700;
+    }
+
+    p {
+      line-height: 2;
+      margin: 10px 0 20px;
+    }
+
+    .welcome-text {
+      font-size: clamp(1.08rem, 1.4vw, 1.2rem);
+      font-style: italic;
+      color: var(--text);
+      line-height: 2;
+    }
+
+    .timeline {
+  max-width: 600px;
+  margin: 30px auto;
+}
+
+.timeline-item {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(139,32,49,0.15);
+}
+
+.time {
+  min-width: 70px;
+  font-weight: bold;
+  color: #8b2031;
+  font-size: 1.1rem;
+}
+
+.event {
+  text-align: left;
+  flex: 1;
+}
+
+    a.map-link {
+      display: inline-block;
+      color: var(--burgundy);
+      text-decoration: none;
+      font-size: 0.95rem;
+      border-bottom: 1px solid var(--gold-border);
+      padding-bottom: 2px;
+      transition: all 0.2s ease;
+    }
+
+    a.map-link:hover {
+      border-bottom-color: var(--burgundy);
+      transform: translateY(-1px);
+    }
+
+    .btn-rsvp {
+      display: inline-block;
+      margin-top: 14px;
+      padding: 14px 34px;
+      background-color: var(--burgundy);
+      color: #ffffff !important;
+      border-radius: 999px;
+      text-decoration: none;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      box-shadow: 0 6px 18px rgba(139, 32, 49, 0.22);
+      transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .btn-rsvp:hover {
+      background-color: var(--burgundy-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(139, 32, 49, 0.32);
+    }
+  </style>
+</head>
+
+<body>
+
+  <main id="page">
+    <section class="hero">
+      <div class="hero-container">
+        <div class="headline">Budeme se brát</div>
+        <div class="names">Míša <span>&amp;</span> Peters</div>
+        
+        <div class="countdown">
+          Zbývá <strong id="days" data-date="2027-06-05">–</strong> dní
+        </div>
+
+        <div class="when-where">
+          <strong>Sobota 5. června 2027</strong><br>
+          Obřad 12:00<br>
+          Zámecký dvůr Černousy
+        </div>
+      </div>
+    </section>
+
+
+    <section class="content">
+       <div class="section-block">
+        <p class="welcome-text">
+          Vítejte na našem svatebním webu!
+        </p>
+        <p class="welcome-text">
+          Společně píšeme novou kapitolu našeho příběhu a budeme nesmírně šťastní, když u toho budete s námi.
+        </p>
+        <p class="welcome-text">
+          Rozhodli jsme se říct si své „ANO“ a oslavit naši lásku v kruhu těch nejbližších – tedy s vámi.
+        </p>
+        <p class="welcome-text">
+          Na těchto stránkách najdete všechny důležité informace o svatebním dni, od místa konání a časového harmonogramu až po ubytování a tipy na svatební dary.
+        </p>
+        <p class="welcome-text">
+          Moc se těšíme, až s vámi všemi oslavíme náš velký den!
+        </p>
+        <p class="welcome-text">
+          S láskou Míša a Peters
+        </p>
+      </div>
+      
+      <hr class="section-divider">
+
+      <div class="section-block">
+  <h2>Harmonogram dne</h2>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <span class="time">11:00</span>
+      <span class="event">Příjezd hostů</span>
+    </div>
+
+    <div class="timeline-item">
+      <span class="time">12:00</span>
+      <span class="event">Svatební obřad</span>
+    </div>
+
+    <div class="timeline-item">
+      <span class="time">12:30</span>
+      <span class="event">Společné focení</span>
+    </div>
+
+    <div class="timeline-item">
+      <span class="time">13:30</span>
+      <span class="event">Slavnostní oběd</span>
+    </div>
+
+    <div class="timeline-item">
+      <span class="time">15:00</span>
+      <span class="event">Krájení dortu</span>
+    </div>
+
+    <div class="timeline-item">
+      <span class="time">16:00</span>
+      <span class="event">První novomanželský tanec</span>
+    </div>
+
+    <div class="timeline-item">
+      <span class="time">21:30</span>
+      <span class="event">Prskavkový tanec</span>
+    </div>
+
+    <div class="timeline-item">
+      <span class="time">22:00</span>
+      <span class="event">Večerní zábava</span>
+    </div>
+  </div>
+  Časy jsou pouze orientační. Čas jednotlivých bodů se bude odvíjet podle bodů předchozích a nálady.
+</div>
+
+      <hr class="section-divider">
+      
+      <div class="section-block">
+        <h2>Místo konání</h2>
+        <p>
+          <strong>Obřad, Hostina a Párty</strong><br>
+          Zámecký dvůr Černousy<br>
+          Černousy 50, 46373 Černousy<br>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Z%C3%A1meck%C3%BD%20dv%C5%AFr%20%C4%8Cernousy" target="_blank" rel="noopener">Zobrazit mapu</a>
+        
+        <img src="zameckydvurcernousy.jpg"
+              alt="Zámecký dvůr Černousy"
+              class="venue-image">
+        
+        </p>
+      </div>
+
+      <hr class="section-divider">
+
+      <div class="section-block">
+        <h2>Ubytování</h2>
+        <p> 
+          Na místě bude k dispozici ubytování pro celou kapacitu hostů. Prosíme o co nejdřívější kontakt v rámci Dotazníku umístěném na konci stránky, zda budete chtít využít ubytování na místě akce. Je nutné vás rozdělit do volných pokojů dle jejich kapacity.<br>
+          <br>
+          Ubytovaní na místě je možné i den před svatbou. Nevěsta i ženich budou již na místě přítomny. Pokud si s námi chcete udělat hezký večer a posedět, nechcete následující den spěchat či rádi pomůžete nervozní nevěstě s přípravou místa jste srdečně zváni.<br>
+          <br>
+         <strong> Ubytování je hrazeno pouze nejbližší rodině! <br></strong>
+          <br>
+         <strong>Cena za osobu: 790 Kč se snídaní na noc <br></strong>
+        </p>
+      </div>
+
+      <hr class="section-divider">
+
+      <div class="section-block">
+        <h2>Doprava a parkování</h2>
+        <p> 
+          <strong>Doprava</strong><br>
+          Doprava na svatbu je vlastní. <br> Do Černous se dostanete i pohodlně přímým vlakem z Liberce. Na vlakovém nádraží v Černousech vás po předchozí domluvě může někdo vyzvednou.<br> Pokud se z nějakého důvodu nemůžete dopravit po vlastní ose, dejte nám vědět v Dotazníku na konci stránky a zajistíme spolujízdu s někým z našich hostů. <br>
+          Z důvodu možného ubytování přímo na místě svatby není aktuálně zařízená jakákoliv doprava z místa akce.<br>
+          Děkujeme. <br>
+          <br>  
+          <strong>Parkování</strong><br>
+          Z důvodů plánu konání obřadu venku, nebude využito pro parkování hlavní parkoviště areálu. Můžete však využít parkování na druhém parkovišti v okolí sýpek. Od hlavního parkoviště budete navedeni pomocí šipek. <br>
+        </p>
+      </div>
+
+      <hr class="section-divider">
+
+      <div class="section-block">
+        <h2>Dress code</h2>
+        <p> 
+          <strong>Garden Elegance</strong><br>
+          Prosíme o elegantní oblečení v přírodních a tlumených tónech. <br>
+          <br>
+          <strong>Doporučené barvy:</strong><br>
+           bordó / vínová<br>
+           šalvějově zelená<br>
+           olivová<br>
+           béžová<br>
+           champagne <br>
+           světle růžová <br>
+           hnědá<br>
+           <br>
+           Prosíme pouze o vynechání čistě bílých a krémových outfitů! Tyto barvy jsou vyhrazeny pouze nevěstě.<br>
+           Děkujeme.<br>
+        </p>
+        <img src="dresscode.png"
+              alt="Dress code"
+              class="venue-image">
+      </div>
+      
+      <div class="section-block">
+        <h2>Dary</h2>
+        <p> 
+          Přemýšlíte-li nad svatebním darem, vězte, že už společnou domácnost máme téměř vybavenou.<br>
+          <br>
+          Největší radost nám proto udělá finanční příspěvek, který využijeme na společné zážitky, cestování a naši budoucnost.<br>
+          <br>  
+          Děkujeme, že tento výjimečný den oslavíte spolu s námi. ❤️ <br>
+        </p>
+      </div>
+
+      <hr class="section-divider">
+
+      <div class="section-block">
+        <h2>RSVP</h2>
+        <p>Prosíme potvrdit účast do 15. února 2026.</p>
+        <a class="btn-rsvp" href="https://eur02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fforms.gle%2FQ1tV5g5Vm5uk8DV87&data=05%7C02%7Cmichaela.vinklarkova%40knorr-bremse.com%7C45e60444564d463b115f08de9af03b07%7C66f6821e0a304a068b8b901bbfd2bc60%7C0%7C0%7C639118554548489240%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C80000%7C%7C%7C&sdata=afjQU6VcbxFkCf1woEY1samtkVy%2FzZdfr055ifeD7KE%3D&reserved=0" target="_blank" rel="noopener">Klikni sem pro potvrzení účasti</a>
+      </div>
+
+      <hr class="section-divider">
+
+      <div class="section-block">
+        <h2>Kontakty</h2>
+        <p> 
+          V případě jakýchkoli dotazů a problémů nás neváhejte kontaktovat na níže uvedených telefonních číslech. V den svatby se prosím obracejte pouze na svědkyni nevěsty, ženich ani nevěsta nebudou mít s největší pravděpodobností k dispozici telefon. <br>
+          <br>
+          <strong>Nevěsta</strong><br>
+          Michaela Vinklárková <br>
+          Tel: 603 394 867<br>
+          <br>
+          <strong>Ženich</strong><br>
+          Petr Knop <br>
+          Tel: 720 481 914<br>
+          <br>
+          <strong>Svědkyně nevěsty</strong><br>
+          Monika Vinklárková <br>
+          Tel: 608 435 138 <br>
+        </p>
+      </div>
+
+      <div class="section-block">
+        <h2>Často kladené otázky</h2>
+        <p> 
+          <strong>Mohu přivézt partnera/partnerku?</strong><br>
+          Pokud na Vám při pozvání nebylo vyložené řečeno, že je zvaný i váš doprovod, počítáme s účastí pouze pozvané osoby.<br>
+          <br>
+          <strong>Mohu přijet s dětmi?</strong><br>
+          Naši nejmenší hosté byli pečlivě vybráni stejně jako dospělí. 😊 Pokud jsou vaše děti uvedeny na pozvánce, budeme se na ně těšit. V opačném případě si užijte den jen sami pro sebe.<br>
+          <br>  
+          <strong>Je svatba venku nebo uvnitř?</strong><br>
+          Obřad i hostina je aktuálně plánovaná venku. Pokud nám to však počasí neumožní máme i suchovou variantu, jak pro obřad, tak i pro hostinu.<br>
+          <br>
+          <strong>Jaký je dress code a je povinný?</strong><br>
+          Veškeré informace o dress codu najdete výše přímo v sekci dress code. Dress code není povinný, ale budeme rádi, když zachováte naše barvy zmíněné v sekci dress code a nebo zvolíte jemné a tlumené odstíny. Děkujeme.<br>
+          <br>
+          <strong>Jsou vhodné podpatky na vybrané místo?</strong><br>
+          Svatba by se měla konat na travnaté ploše mezi budovami, proto bychom doporučovali nebrat si jehlové podpatky. Avšak krom obřadu by měla být všude země zpevněná a podpatky by neměly vadit. Tuto volbu tedy necháme na vás.<br>
+          <br>
+          <strong>Kdy je nejpozdější čas příjezdu?</strong><br>
+          Prosíme o příjezd nejpozději do 11:30, abychom mohli zahájit obřad včas.<br>
+          <br>
+          <strong>Můžeme na svatbě fotit?</strong><br>
+          Určitě! Budeme rádi za každou fotografii. Jen během obřadu vás prosíme, abyste si jej co nejvíce užili na vlastní oči a mobil nechali schovaný. Obřad nám bude zaznamenávat fotografka Nikola. Fotky vám posléze velmi rádi poskytneme. Děkujeme za pochopení.<br>
+          <br>
+          <strong>Co když mám potravinovou alergii nebo dietní omezení?</strong><br>
+          Uveďte prosím své dietní omezení v RSVP formuláři a pokusíme se vám vyjít vstříc. Avšak téměř vše jídlo bude podáváno formou rautu, takže si každý budem moci nabrat co chce a kolik toho chce.<br>
+          <br>
+          <strong>Je na místě možnost platby kartou?</strong><br>
+          Ano, případné ubytování je možné být hrazeno kartou.
+          <br>
+          <strong>Jak dlouho bude oslava trvat?</strong><br>
+          DJ bude hrát tak dlouho, dokud bude chuť slavit a bavit se. Možná i nevěsta přešvihne svojí večerku a zůstane do ranních hodin. 😁 <br>        
+          <br>
+          <strong>Co když budu mít další otázky?</strong><br>
+          Určitě nás neváhejte kontaktovat. Rádi vám odpovíme na všechny dotazy. Jen si prosím před kontaktováním dobře pročtěte celý web, ať se neptáte na něco, co je zde uvedeno. Děkujeme. <br>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function() {
+      function parseISODateToLocalMidnight(iso) {
+        if (!iso) return null;
+        var clean = String(iso).trim();
+        if (clean.indexOf('$') === 0) return null;
+        var parts = clean.split('-');
+        if (parts.length !== 3) return null;
+        var y = parseInt(parts[0], 10);
+        var m = parseInt(parts[1], 10);
+        var d = parseInt(parts[2], 10);
+        if (!y || !m || !d) return null;
+        return new Date(y, m - 1, d);
+      }
+
+      function updateCountdown() {
+        var daysEl = document.getElementById('days');
+        if (!daysEl) return;
+        var wedding = parseISODateToLocalMidnight(daysEl.getAttribute('data-date'));
+        if (!wedding) {
+          daysEl.innerText = '—';
+          return;
+        }
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+        wedding.setHours(0, 0, 0, 0);
+        var diff = Math.ceil((wedding.getTime() - today.getTime()) / (24 * 60 * 60 * 1000));
+        daysEl.innerText = diff >= 0 ? diff : 0;
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', updateCountdown);
+      } else {
+        updateCountdown();
+      }
+    })();
+  </script>
+
+</body>
+</html>
