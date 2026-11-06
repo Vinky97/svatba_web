@@ -674,17 +674,22 @@ body.wedding-unlocked #intro {
 /* Květiny v rozích */
 
 
+
+/* Květiny na počítači */
 .intro-flowers {
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background-image: url("kvetiny-roh.png");
-  background-size: 100% 100%;
+
+  background-image: url("kvetiny-roh-pc.png");
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+
   animation: flowersAppear 2s ease both;
 }
+
 
 
 /* Hlavní obsah */
@@ -915,20 +920,6 @@ body.wedding-unlocked #intro {
 
 }
 
-/* Květiny přes celou úvodní obrazovku */
-#intro .intro-flowers {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  pointer-events: none;
-  background-image: url("kvetiny-roh.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-}
-
 /* Monogram nad květinami */
 #intro .intro-content {
   position: relative;
@@ -984,18 +975,15 @@ body.wedding-unlocked #intro {
     object-fit: contain;
   }
 
-/* Mobil – menší květiny bez deformace */
-#intro .intro-flowers {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
 
-  background-image: url("kvetiny-roh.png");
-  background-size: 100% auto;
+/* Mobil – vlastní květinová dekorace */
+#intro .intro-flowers {
+  background-image: url("kvetiny-roh-mobil.png");
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
 }
+
 
 
   /* Jména */
