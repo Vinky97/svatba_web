@@ -1,0 +1,1447 @@
+<!doctype html>
+<html lang="$site_language">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script>
+  document.documentElement.classList.add("js");
+</script>
+  <title>$site_title</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* Vizuální brána: pouze pro běžné návštěvníky, nikoli bezpečnostní ochrana. */
+    body:not(.wedding-unlocked) { overflow: hidden; }
+    body:not(.wedding-unlocked) #page,
+    body:not(.wedding-unlocked) #intro { display: none; }
+    #wedding-lock {
+      position: fixed; inset: 0; z-index: 20000; background: #f7f3ee;
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px; overflow-y: auto;
+      background-image: linear-gradient(rgba(247,243,238,.92),rgba(247,243,238,.92)), url("kyticka.jpg");
+      background-size: cover; background-position: center;
+    }
+    body.wedding-unlocked #wedding-lock { display: none; }
+    .wedding-lock-card { width: min(100%, 460px); text-align: center;
+      padding: 42px 28px; background: rgba(255,255,255,.88);
+      border: 1px solid rgba(139,32,49,.24); box-shadow: 0 14px 45px rgba(70,35,40,.09); }
+    .wedding-lock-card h1 { font: 500 clamp(2.6rem, 7vw, 4rem)/1.15 "Great Vibes", cursive;
+      color: #8b2031; margin-bottom: 14px; }
+    .wedding-lock-card p { margin: 0 0 24px; font-size: .9rem; line-height: 1.8; }
+    .wedding-lock-card label { display: block; margin-bottom: 10px; font-size: .9rem; }
+    .wedding-lock-card input { display: block; width: 100%; border: 1px solid #cba6ac;
+      padding: 14px; font: inherit; font-size: 1rem; background: white; color: #493a35; }
+    .wedding-lock-card button { margin-top: 16px; width: 100%; padding: 13px 20px;
+      border: 1px solid #8b2031; background: #8b2031; color: white; cursor: pointer;
+      font: 600 1.25rem "Cormorant Garamond", serif; }
+    .wedding-lock-card button:hover { background: #6d1725; }
+    #wedding-lock-error { min-height: 1.5em; margin: 12px 0 0;
+      color: #8b2031; font-size: .85rem; }
+    @media (prefers-reduced-motion: reduce) {
+      body.wedding-unlocked #intro { display: none; }
+      body.wedding-unlocked #page { animation: none; opacity: 1; }
+    }
+
+    :root {
+      --bg: #f7f3ee;
+      --card-bg: #ffffff;
+      --text: #695a51;
+      --muted: #8e8076;
+      --burgundy: #8b2031;
+      --burgundy-hover: #6d1725;
+      --gold-border: rgba(140, 32, 49, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Libre Baskerville", Georgia, serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    /* --- HLAVNÍ SEKCE (HERO) --- */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 20px;
+      position: relative;
+      background-color: #f7f3ee;
+      background-image: 
+        linear-gradient(rgba(247, 243, 238, 0.88), rgba(247, 243, 238, 0.88)),
+        url("kyticka.jpg");
+      background-size: cover;
+      background-position: center 25%;
+    }
+
+    .hero-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .headline {
+      font-family: "Great Vibes", cursive;
+      font-size: clamp(4rem, 8vw, 6.6rem);
+      color: var(--burgundy);
+      margin-bottom: 16px;
+      line-height: 1;
+    }
+
+    .names {
+      font-family:"Cormorant Garamond",serif;
+      font-size:clamp(2rem,3.6vw,3.1rem);
+      color:var(--burgundy);
+      margin-bottom:18px;
+    }
+
+    .names span {
+      margin: 0 10px;
+    }
+
+    .countdown {
+      font-size:1.05rem;
+      color:#8a7f76;
+      margin-bottom:26px
+    
+    }
+
+    .countdown strong {
+      font-size:clamp(2rem,4vw,3rem);
+      color:var(--burgundy)
+    }
+
+    .when-where {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: var(--text);
+    }
+
+    .when-where strong {
+      color: var(--burgundy);
+      font-size: 1.15rem;
+    }
+
+    /* --- OBSAHOVÁ SEKCE --- */
+    .content {
+      max-width: 1000px;
+      margin: 40px auto 80px;
+      padding: 0 30px;
+      text-align: center;
+    }
+
+    .section-block {
+      padding: 40px 10px;
+      background: transparent;
+    }
+
+    /* Animace sekcí */
+
+.reveal {
+  opacity: 1;
+  transform: none;
+}
+
+.js .reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s ease,
+              transform 1s ease;
+}
+
+.js .reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-container > * {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 1.2s ease,
+    transform 1.2s ease;
+}
+
+    .venue-image {
+  width: 100%;
+  max-width: 700px;
+  display: block;
+  margin: 30px auto 0;
+  border-radius: 4px;
+  border: 8px solid white;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+  opacity: 0;
+  transform: scale(0.95);
+  transition: all 1.2s ease;
+  will-change: transform, opacity;  
+}
+
+  .venue-image.visible {
+opacity: 1;
+transform: scale(1);
+}
+
+.contacts-grid{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:30px;
+  margin-top:40px;
+}
+
+.contact-card{
+  text-align:center;
+}
+
+.contact-card h3{
+  color:#8b2031;
+  font-size:1.5rem;
+  margin-bottom:15px;
+}
+
+.contact-card p{
+  line-height:1.8;
+}
+
+@media (max-width: 768px){
+
+  .contacts-grid{
+    grid-template-columns: 1fr;
+    gap:10px;
+  }
+
+}
+.transport-grid{
+    display:flex;
+    gap:80px;
+    margin-top:40px;
+    width:100%;
+}
+
+.transport-card{
+    flex:1;
+    text-align:center;
+}
+
+.transport-card h3{
+    text-align:center;
+    font-size:2.3rem;
+    color:#8b2031;
+    margin-bottom:25px;
+    font-family:"Cormorant Garamond", serif;
+}
+
+.transport-card p{
+    text-align:center;
+    margin-bottom:12px;
+}
+
+/* Tenká decentní dělicí linka pod sekcí */
+    .section-divider {
+  width: 85%;
+  max-width: 600px;
+  height: 1px;
+  margin: 30px auto;
+  border: none;
+
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(139,32,49,0.35),
+    rgba(139,32,49,0.35),
+    transparent
+  );
+}
+  
+    h2 {
+      margin: 0 0 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      font-size: 2rem;
+      color: var(--burgundy);
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 700;
+    }
+
+    p {
+      line-height: 2;
+      margin: 10px 0 20px;
+    }
+
+    .welcome-text {
+      font-size: clamp(1.08rem, 1.4vw, 1.2rem);
+      font-style: italic;
+      color: var(--text);
+      line-height: 2;
+    }
+
+    a.map-link {
+      display: inline-block;
+      color: var(--burgundy);
+      text-decoration: none;
+      font-size: 0.95rem;
+      border-bottom: 1px solid var(--gold-border);
+      padding-bottom: 2px;
+      transition: all 0.2s ease;
+    }
+
+    a.map-link:hover {
+      border-bottom-color: var(--burgundy);
+      transform: translateY(-1px);
+    }
+
+/* ===========================
+   SVATEBNÍ NAVIGACE
+=========================== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+.wedding-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  background: rgba(247,243,238,0.97);
+  border-top: 1px solid #dfc6bf;
+  border-bottom: 1px solid #dfc6bf;
+  box-shadow: 0 3px 15px rgba(0,0,0,0.04);
+}
+
+/* Odkazy na počítači */
+.nav-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 17px 20px;
+}
+
+.nav-links a {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.15rem;
+  color: #8b2031;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: #bd7580;
+}
+
+/* Mobilní lišta skrytá na PC */
+.nav-mobile-bar {
+  display: none;
+}
+
+/* Aby nadpis nezakryla navigace */
+.section-block[id] {
+  scroll-margin-top: 95px;
+}
+
+/* MOBILNÍ NAVIGACE */
+@media (max-width: 900px) {
+
+  .nav-mobile-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+  }
+
+  .nav-logo {
+    font-family: "Great Vibes", cursive;
+    font-size: 1.8rem;
+    color: #8b2031;
+  }
+
+  .nav-toggle {
+    background: transparent;
+    border: none;
+    color: #8b2031;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 10px 20px 20px;
+    border-top: 1px solid #dfc6bf;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-links a {
+    text-align: center;
+    padding: 12px 8px;
+    border-bottom: 1px solid rgba(139,32,49,0.1);
+    font-size: 1.35rem;
+  }
+
+  .section-block[id] {
+    scroll-margin-top: 75px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+    .btn-rsvp {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 14px 36px;
+
+  background: transparent;
+  color: var(--burgundy);
+
+  border: 1.5px solid var(--burgundy);
+  border-radius: 0;
+
+  text-decoration: none;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.3rem;
+  letter-spacing: 0.08em;
+
+  transition: all 0.4s ease;
+}
+
+.btn-rsvp:hover {
+  background: var(--burgundy);
+  color: white !important;
+}
+
+/* SVATEBNÍ HARMONOGRAM */
+
+.wedding-timeline {
+  position: relative;
+  max-width: 850px;
+  margin: 45px auto;
+  text-align: left;
+}
+
+/* Svislá linka */
+.wedding-timeline::before {
+  content: "";
+  position: absolute;
+  left: 142px;
+  top: 65px;
+  bottom: 65px;
+  width: 1px;
+  background: #cda9a1;
+}
+
+/* Jeden bod programu */
+.wedding-event {
+  position: relative;
+  display: grid;
+  grid-template-columns: 110px 100px minmax(0, 1fr);
+  column-gap: 45px;
+  align-items: center;
+  min-height: 132px;
+  padding: 18px 0;
+}
+
+/* Vodorovné oddělení */
+.wedding-event:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 185px;
+  right: 0;
+  height: 1px;
+  background: rgba(139,32,49,0.16);
+}
+
+/* Tečky na časové ose */
+.wedding-event::before {
+  content: "";
+  position: absolute;
+  left: 135px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #8b2031;
+  z-index: 2;
+}
+
+/* Kulaté pozadí ikony */
+.event-icon {
+  width: 105px;
+  height: 105px;
+  border-radius: 50%;
+  background: #f1e5df;
+  color: #762331;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.event-icon svg {
+  width: 44px;
+  height: 44px;
+  stroke-width: 1.4;
+}
+
+/* Čas */
+.event-time {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 2.25rem;
+  font-weight: 600;
+  color: #8b2031;
+}
+
+/* Název a popis */
+.event-info h3 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 2.1rem;
+  font-weight: 600;
+  line-height: 1.15;
+  color: #493a35;
+  margin: 0;
+}
+
+.event-info p {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.55rem;
+  color: #8e7069;
+  line-height: 1.3;
+  margin: 5px 0 0;
+}
+
+/* MOBIL */
+@media (max-width: 768px) {
+
+  .wedding-timeline {
+    margin: 25px auto;
+  }
+
+  .wedding-timeline::before {
+    left: 61px;
+    top: 40px;
+    bottom: 40px;
+  }
+
+  .wedding-event {
+    grid-template-columns: 48px 58px minmax(0, 1fr);
+    column-gap: 19px;
+    min-height: 105px;
+    padding: 15px 0;
+  }
+
+  .wedding-event::before {
+    left: 56px;
+    width: 11px;
+    height: 11px;
+  }
+
+  .wedding-event:not(:last-child)::after {
+    left: 80px;
+  }
+
+  .event-icon {
+    width: 46px;
+    height: 46px;
+  }
+
+  .event-icon svg {
+    width: 25px;
+    height: 25px;
+  }
+
+  .event-time {
+    font-size: 1.45rem;
+  }
+
+  .event-info h3 {
+    font-size: 1.45rem;
+  }
+
+  .event-info p {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .transport-grid {
+    flex-direction: column;
+    gap: 25px;
+    margin-top: 25px;
+  }
+
+  .content {
+    padding: 0 18px;
+  }
+
+  .section-block {
+    padding: 30px 5px;
+  }
+
+  h2 {
+    font-size: 1.7rem;
+    letter-spacing: 0.12em;
+  }
+
+  .transport-card h3 {
+    font-size: 1.8rem;
+  }
+
+  .venue-image {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+
+/* ==================================
+   SVATEBNÍ ÚVODNÍ ANIMACE
+================================== */
+
+#intro {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #f7f3ee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 20px;
+  animation: none;
+}
+body.wedding-unlocked #intro {
+  animation: introFade 4.5s ease forwards;
+}
+/* Květiny v rozích */
+
+
+.intro-flowers {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image: url("kvetiny-roh.png");
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  animation: flowersAppear 2s ease both;
+}
+
+
+/* Hlavní obsah */
+
+.intro-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  animation: introContentFade 4.5s ease forwards;
+}
+
+/* Monogram */
+
+.intro-monogram {
+  position: relative;
+  width: clamp(190px, 42vw, 350px);
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  animation: monogramZoom 4s ease-in-out forwards;
+}
+
+/* Jemný zlatý kruh */
+
+.intro-circle {
+  position: absolute;
+  inset: 5%;
+  border: 1.5px solid #b78b50;
+  border-radius: 50%;
+  opacity: 0.9;
+}
+
+/* Původní monogram v bordó */
+
+.intro-logo {
+  position: relative;
+  width: 80%;
+  height: 80%;
+  background: #8b2031;
+
+  -webkit-mask:
+    url("monogram_transparent.png")
+    center / contain no-repeat;
+
+  mask:
+    url("monogram_transparent.png")
+    center / contain no-repeat;
+}
+
+/* Ozdobné větvičky kolem kruhu */
+
+.intro-branch {
+  position: absolute;
+  color: #8b2031;
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  opacity: 0.75;
+  line-height: 1;
+}
+
+.intro-branch-left {
+  left: 0;
+  bottom: 10%;
+  transform: rotate(-35deg);
+}
+
+.intro-branch-right {
+  right: 0;
+  top: 10%;
+  transform: rotate(145deg);
+}
+
+/* Jména */
+
+.intro-names {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+  color: #8b2031;
+  line-height: 1.15;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.intro-amp {
+  font-size: 0.55em;
+  vertical-align: 0.12em;
+  margin: 0 -0.08em;
+  opacity: 0.85;
+}
+
+/* Linky se srdíčkem */
+
+.intro-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: min(290px, 65vw);
+  margin: 18px auto 10px;
+}
+
+.intro-divider > span:not(.intro-heart) {
+  flex: 1;
+  height: 1px;
+  background: #8b2031;
+  opacity: 0.7;
+}
+
+.intro-heart {
+  font-size: 2.2rem;
+  color: #8b2031;
+  line-height: 1;
+}
+
+/* Datum */
+
+.intro-date {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1.4rem, 3.5vw, 2rem);
+  letter-spacing: 0.25em;
+  color: #8b2031;
+}
+
+/* ==================================
+   ANIMACE
+================================== */
+
+@keyframes monogramZoom {
+  0% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+
+  25% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  75% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+@keyframes flowersAppear {
+  from {
+    opacity: 0;
+    transform: translate(-25px, -25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes flowersAppearBottom {
+  from {
+    opacity: 0;
+    transform: rotate(180deg) translate(-25px, -25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes introContentFade {
+  0%, 12% {
+    opacity: 0;
+  }
+
+  30%, 78% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes introFade {
+  0%, 82% {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* Zobrazení hlavního webu */
+
+#page {
+  opacity: 1;
+ animation: none; 
+}
+
+@keyframes showPage {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Mobilní úprava */
+
+@media (max-width: 600px) {
+  .intro-monogram {
+    width: min(58vw, 260px);
+  }
+
+  .intro-names {
+    font-size: clamp(1.9rem, 7vw, 2.8rem);
+  }
+
+}
+
+/* Květiny přes celou úvodní obrazovku */
+#intro .intro-flowers {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  background-image: url("kvetiny-roh.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+/* Monogram nad květinami */
+#intro .intro-content {
+  position: relative;
+  z-index: 2;
+}
+
+#intro .intro-monogram-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Menší & mezi jmény */
+#intro .intro-amp {
+  font-size: 0.45em;
+  vertical-align: 0.12em;
+  margin: 0 -0.08em;
+}
+
+  </style>
+</head>
+
+<body>
+  
+<div id="wedding-lock">
+  <div class="wedding-lock-card">
+    <h1>Michaela &amp; Petr</h1>
+    <p>Vítejte na našem svatebním webu.<br>
+       Pro vstup prosím zadejte heslo.</p>
+
+    <form id="wedding-lock-form">
+      <label for="wedding-lock-password">Heslo</label>
+      <input
+        type="password"
+        id="wedding-lock-password"
+        required
+        autocomplete="off"
+      >
+      <button type="submit">Vstoupit na web ♡</button>
+      <p id="wedding-lock-error" aria-live="polite"></p>
+    </form>
+  </div>
+</div>
+
+
+<div id="intro">
+  <div class="intro-flowers"></div>
+
+  <div class="intro-content">
+    <div class="intro-monogram">
+      <img
+        src="monogram-svatba.png"
+        alt="Svatební monogram M a P"
+        class="intro-monogram-img"
+      >
+    </div>
+
+    <div class="intro-names">
+      Michaela <span class="intro-amp">&amp;</span> Petr
+    </div>
+
+    <div class="intro-divider">
+      <span></span>
+      <span class="intro-heart">♡</span>
+      <span></span>
+    </div>
+
+    <div class="intro-date">5. 6. 2027</div>
+  </div>
+</div>
+
+  <main id="page">
+    <section class="hero">
+      <div class="hero-container">
+        <div class="headline">Budeme se brát</div>
+        <div class="names">$bride_name <span>&amp;</span> $groom_name</div>
+        
+        <div class="countdown">
+          Zbývá <strong id="days" data-date="$wedding_date_iso">–</strong> dní
+        </div>
+
+        <div class="when-where">
+          <strong>$wedding_date_display</strong><br>
+          Obřad $wedding_ceremony_time<br>
+          $ceremony_name
+        </div>
+      </div>
+    </section>
+
+<!-- NAVIGACE WEBU -->
+<nav class="wedding-nav" aria-label="Hlavní navigace">
+
+  <div class="nav-mobile-bar">
+    <span class="nav-logo">M &amp; P ♡</span>
+
+    <button class="nav-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="nav-links">
+      MENU <span class="nav-symbol">☰</span>
+    </button>
+  </div>
+
+  <div class="nav-links" id="nav-links">
+    <a href="#Harmonogram">Harmonogram</a>
+    <a href="#Místo">Místo</a>
+    <a href="#Ubytování">Ubytování</a>
+    <a href="#Doprava">Doprava a parkování</a>
+    <a href="#Dresscode">Dress code</a>
+    <a href="#Dary">Dary</a>
+    <a href="#Dotazník">Dotazník</a>
+    <a href="#Kontakty">Kontakty</a>
+    <a href="#FAQ">FAQ</a>
+  </div>
+
+</nav>
+
+
+    <section class="content">
+       <div class="section-block reveal">
+        <p class="welcome-text">
+          $site_welcome_text
+        </p>
+        <p class="welcome-text">
+          $site_welcome_text2
+        </p>
+        <p class="welcome-text">
+          $site_welcome_text3
+        </p>
+        <p class="welcome-text">
+          $site_welcome_text4
+        </p>
+        <p class="welcome-text">
+          $site_welcome_text5
+        </p>
+        <p class="welcome-text">
+          $site_welcome_text6 $bride_name a $groom_name
+        </p>
+      </div>
+      
+      <hr class="section-divider">
+
+      <div class="section-block reveal" id="Harmonogram">
+  <h2>Harmonogram dne</h2>
+
+  
+
+<div class="wedding-timeline">
+
+  <div class="wedding-event">
+    <div class="event-icon"><i data-lucide="car-front"></i></div>
+    <div class="event-time">11:00</div>
+    <div class="event-info">
+      <h3>Příjezd hostů</h3>
+      <p>Těšíme se na vaše úsměvy!</p>
+    </div>
+  </div>
+
+  <div class="wedding-event">
+    <div class="event-icon"><i data-lucide="gem"></i></div>
+    <div class="event-time">12:00</div>
+    <div class="event-info">
+      <h3>Svatební obřad</h3>
+      <p>Řekneme si své ANO.</p>
+    </div>
+  </div>
+
+  <div class="wedding-event">
+    <div class="event-icon"><i data-lucide="wine"></i></div>
+    <div class="event-time">12:30</div>
+    <div class="event-info">
+      <h3>Společné focení</h3>
+      <p>Zachytíme naše první společné chvíle jako manželé.</p>
+    </div>
+  </div>
+
+  <div class="wedding-event">
+    <div class="event-icon"><i data-lucide="utensils"></i></div>
+    <div class="event-time">13:30</div>
+    <div class="event-info">
+      <h3>Slavnostní oběd</h3>
+      <p>Dobré jídlo, ještě lepší společnost.</p>
+    </div>
+  </div>
+
+  <div class="wedding-event">
+    <div class="event-icon"><i data-lucide="cake-slice"></i></div>
+    <div class="event-time">15:00</div>
+    <div class="event-info">
+      <h3>Krájení dortu</h3>
+      <p>Sladký začátek další kapitoly.</p>
+    </div>
+  </div>
+
+  <div class="wedding-event">
+    <div class="event-icon"><i data-lucide="music"></i></div>
+    <div class="event-time">16:00</div>
+    <div class="event-info">
+      <h3>První novomanželský tanec</h3>
+      <p>A pak už tančíme všichni!</p>
+    </div>
+  </div>
+
+  <div class="wedding-event">
+    <div class="event-icon"><i data-lucide="sparkles"></i></div>
+    <div class="event-time">21:30</div>
+    <div class="event-info">
+      <h3>Prskavkový tanec</h3>
+      <p>Rozsviťme společně večer.</p>
+    </div>
+  </div>
+
+  <div class="wedding-event">
+    <div class="event-icon"><i data-lucide="party-popper"></i></div>
+    <div class="event-time">22:00</div>
+    <div class="event-info">
+      <h3>Večerní zábava</h3>
+      <p>Protože ty nejlepší příběhy se píšou v noci.</p>
+    </div>
+  </div>
+
+</div>
+  Uvedené časy jsou orientační, s výjimkou začátku svatebního obřadu. Chceme si náš den užít bez zbytečného spěchu, proto se jednotlivé body programu mohou mírně posunout. O všem důležitém vás budeme včas informovat, abyste o nic nepřišli. ❤️
+</div>
+
+      <hr class="section-divider">
+      
+      <div class="section-block reveal" id="Místo">
+        <h2>Místo konání</h2>
+        <p>
+          <strong>Obřad, Hostina a Párty</strong><br>
+          $ceremony_name<br>
+          $ceremony_address<br>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=$ceremony_map_query" target="_blank" rel="noopener">Zobrazit mapu</a>
+        </p>
+        <img src="zameckydvurcernousy.jpg"
+              alt="Zámecký dvůr Černousy"
+              class="venue-image">
+      </div>
+
+      <hr class="section-divider">
+
+      <div class="section-block reveal" id="Ubytování">
+        <h2>Ubytování</h2>
+        <p> 
+          $ubytovani_info<br>
+          <br>
+          $ubytovani_den_predem<br>
+          <br>
+         <strong> $ubytovani_hrazeno <br></strong>
+          <br>
+         <strong>Cena za osobu: $ubytovani_cena <br></strong>
+        </p>
+      </div>
+
+      <hr class="section-divider">
+
+      <div class="section-block reveal" id="Doprava">
+        <h2>Doprava a parkování</h2>
+         <div class="transport-grid">
+ 
+          <div class="transport-card">
+          <h3>Doprava</h3><br>
+          <p>$ceremony_doprava_info</p>
+          <p>$ceremony_doprava_odjezd</p>
+          <p>$ceremony_thanks </p>
+          <br> </div>
+          <div class="transport-card">
+          <h3>Parkování</h3><br>
+          <p>$ceremony_parking_info </p>
+    </div>
+      </div>
+
+      <hr class="section-divider">
+
+      <div class="section-block reveal" id="Dresscode">
+        <h2>Dress code</h2>
+        <p> 
+          <strong>Garden Elegance</strong><br>
+          Prosíme o elegantní oblečení v přírodních a tlumených tónech. <br>
+          <br>
+          <strong>Doporučené barvy:</strong><br>
+           bordó / vínová<br>
+           šalvějově zelená<br>
+           olivová<br>
+           béžová<br>
+           champagne <br>
+           světle růžová <br>
+           hnědá<br>
+           <br>
+           Barevná paleta je pro vás inspirací, nikoliv povinností. Nejdůležitější je, abyste se cítili pohodlně a užili si náš den společně s námi. Prosíme pouze o vynechání čistě bílých a krémových outfitů! Tyto barvy jsou vyhrazeny pouze nevěstě.<br>
+           Děkujeme.<br>
+        </p>
+        <img src="dresscode.png"
+              alt="Dress code"
+              class="venue-image">
+      </div>
+      
+      <div class="section-block reveal" id="Dary">
+        <h2>Dary</h2>
+        <p> 
+          Přemýšlíte-li nad svatebním darem, vězte, že už společnou domácnost máme téměř vybavenou.<br>
+          <br>
+          Největší radost nám proto udělá finanční příspěvek, který využijeme na společné zážitky, cestování a naši budoucnost.<br>
+          <br>  
+          Děkujeme, že tento výjimečný den oslavíte spolu s námi. ❤️ <br>
+        </p>
+      </div>
+
+      <hr class="section-divider">
+
+      <div class="section-block reveal" id="Dotazník">
+        <h2>Dotazník účasti</h2>
+        <p>Prosíme potvrdit účast $rsvp_deadline_display.</p>
+        <a class="btn-rsvp" href="https://eur02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fforms.gle%2FQ1tV5g5Vm5uk8DV87&data=05%7C02%7Cmichaela.vinklarkova%40knorr-bremse.com%7C45e60444564d463b115f08de9af03b07%7C66f6821e0a304a068b8b901bbfd2bc60%7C0%7C0%7C639118554548489240%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C80000%7C%7C%7C&sdata=afjQU6VcbxFkCf1woEY1samtkVy%2FzZdfr055ifeD7KE%3D&reserved=0" target="_blank" rel="noopener">Klikni sem pro potvrzení účasti</a>
+      </div>
+
+      <hr class="section-divider">
+
+      <div class="section-block reveal" id="Kontakty">
+        <h2>Kontakty</h2>
+        <p> 
+          V případě jakýchkoli dotazů a problémů nás neváhejte kontaktovat na níže uvedených telefonních číslech. V den svatby se prosím obracejte pouze na svědkyni nevěsty, ženich ani nevěsta nebudou mít s největší pravděpodobností k dispozici telefon. <br>
+          <br></p>
+          <div class="contacts-grid">
+          <div class="contact-card">
+          <h3>Nevěsta</h3><br>
+          Michaela Vinklárková <br>
+          Tel: 603 394 867<br>
+          <br></div>
+          <div class="contact-card">
+          <h3>Ženich</h3><br>
+          Petr Knop <br>
+          Tel: 720 481 914<br>
+          <br></div>
+          <div class="contact-card">
+          <h3>Svědkyně</h3><br>
+          Monika Vinklárková <br>
+          Tel: 608 435 138 <br>
+        </div>
+        </div>
+      </div>
+
+      <div class="section-block reveal" id="FAQ">
+        <h2>Často kladené otázky</h2>
+        <p> 
+          <strong>Mohu přivézt partnera/partnerku?</strong><br>
+          Pokud jsme vás na pozvánce nepozvali i s doprovodem, počítáme prosím pouze s vaší účastí.<br>
+          <br>
+          <strong>Mohu přijet s dětmi?</strong><br>
+          Pokud jsou vaše děti uvedeny na pozvánce, moc rádi je přivítáme. V opačném případě si prosím užijte den bez ratolestí.<br>
+          <br>  
+          <strong>Je svatba venku nebo uvnitř?</strong><br>
+          Obřad i hostina jsou aktuálně plánovány venku. Pro případ nepříznivého počasí máme připravenou i zastřešenou variantu obřadu a hostiny.<br>
+          <br>
+          <strong>Jaký je dress code a je povinný?</strong><br>
+          Veškeré informace o dress codu najdete výše přímo v sekci dress code. Dress code není povinný, ale budeme rádi, když zachováte naše barvy zmíněné v sekci dress code nebo zvolíte jiné jemné a tlumené odstíny. Děkujeme.<br>
+          <br>
+          <strong>Jsou vhodné podpatky na vybrané místo?</strong><br>
+          Svatba by se měla konat na travnaté ploše mezi budovami, proto bychom doporučovali nebrat si jehlové podpatky. Avšak krom obřadu by měla být všude země zpevněná a podpatky by neměly vadit. Tuto volbu tedy necháme na vás.<br>
+          <br>
+          <strong>Kdy je nejpozdější čas příjezdu?</strong><br>
+          Prosíme o příjezd nejpozději do 11:30, abychom mohli zahájit obřad včas.<br>
+          <br>
+          <strong>Můžeme na svatbě fotit?</strong><br>
+          Určitě! Budeme rádi za každou fotografii. Jen během obřadu vás prosíme, abyste si jej co nejvíce užili na vlastní oči a mobil nechali schovaný. Obřad nám bude zaznamenávat fotografka Nikola. Fotky vám posléze velmi rádi poskytneme. Děkujeme za pochopení.<br>
+          <br>
+          <strong>Co když mám potravinovou alergii nebo dietní omezení?</strong><br>
+          Uveďte prosím své dietní omezení v RSVP formuláři a pokusíme se vám vyjít vstříc. Avšak téměř vše jídlo bude podáváno formou rautu, takže si každý si bude moci vybrat podle své chuti.<br>
+          <br>
+          <strong>Je na místě možnost platby kartou?</strong><br>
+          Ano, ubytování je možné uhradit také platební kartou.<br>
+          <br>
+          <strong>Jak dlouho bude oslava trvat?</strong><br>
+          DJ bude hrát tak dlouho, dokud bude chuť slavit a bavit se. Možná i nevěsta přešvihne svojí večerku a zůstane do ranních hodin. 😁 <br>        
+          <br>
+          <strong>Co když budu mít další otázky?</strong><br>
+          Spoustu odpovědí najdete přímo na našem webu, ale pokud vám cokoliv nebude jasné, neváhejte se ozvat. Rádi vám odpovíme na všechny dotazy. Děkujeme. <br>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Pouze vizuální zamčení: heslo lze dohledat ve zdrojovém kódu.
+    (function () {
+      const form = document.getElementById('wedding-lock-form');
+      const password = document.getElementById('wedding-lock-password');
+      const error = document.getElementById('wedding-lock-error');
+      function unlock() {
+        document.body.classList.add('wedding-unlocked');
+        window.dispatchEvent(new Event('wedding-unlocked'));
+      }
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        if (password.value === 'ANOMisaPetr2027') {
+          sessionStorage.setItem('wedding-unlocked', 'yes');
+          unlock();
+        } else {
+          error.textContent = 'Nesprávné heslo. Zkuste to prosím znovu.';
+          password.value = '';
+          password.focus();
+        }
+      });
+      if (sessionStorage.getItem('wedding-unlocked') === 'yes') window.addEventListener('load', unlock);
+      else password.focus();
+    })();
+  </script>
+  <script>
+    (function() {
+      function parseISODateToLocalMidnight(iso) {
+        if (!iso) return null;
+        var clean = String(iso).trim();
+        if (clean.indexOf('$') === 0) return null;
+        var parts = clean.split('-');
+        if (parts.length !== 3) return null;
+        var y = parseInt(parts[0], 10);
+        var m = parseInt(parts[1], 10);
+        var d = parseInt(parts[2], 10);
+        if (!y || !m || !d) return null;
+        return new Date(y, m - 1, d);
+      }
+
+      function updateCountdown() {
+        var daysEl = document.getElementById('days');
+        if (!daysEl) return;
+        var wedding = parseISODateToLocalMidnight(daysEl.getAttribute('data-date'));
+        if (!wedding) {
+          daysEl.innerText = '—';
+          return;
+        }
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+        wedding.setHours(0, 0, 0, 0);
+        var diff = Math.ceil(
+  (wedding.getTime() - today.getTime())
+  / (24 * 60 * 60 * 1000)
+);
+        daysEl.innerText = diff >= 0 ? diff : 0;
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', updateCountdown);
+      } else {
+        updateCountdown();
+      }
+
+/* ANIMACE */
+window.addEventListener("wedding-unlocked", () => {
+
+  setTimeout(() => {
+
+    const heroItems = document.querySelectorAll(".hero-container > *");
+
+    heroItems.forEach((item, index) => {
+
+      setTimeout(() => {
+        item.style.opacity = "1";
+        item.style.transform = "translateY(0)";
+      }, index * 600);
+
+    });
+
+  }, 4600);
+
+  setTimeout(() => {
+    const intro = document.getElementById("intro");
+    if (intro) intro.remove();
+  }, 4500);
+});
+
+const observer = new IntersectionObserver((entries) => {
+
+  entries.forEach(entry => {
+
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+    }
+
+  });
+
+}, {
+  threshold: 0.15
+});
+
+document.querySelectorAll(
+  ".reveal, .venue-image"
+).forEach(el => observer.observe(el));
+
+
+    })();
+  </script>
+
+<script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+<script>
+  if (window.lucide) {
+    lucide.createIcons();
+  }
+</script>
+
+<script>
+  const navToggle = document.querySelector(".nav-toggle");
+  const navLinks = document.querySelector(".nav-links");
+  const navSymbol = document.querySelector(".nav-symbol");
+
+  function closeMenu() {
+    navLinks.classList.remove("open");
+    navToggle.setAttribute("aria-expanded", "false");
+    navSymbol.textContent = "☰";
+  }
+
+  navToggle.addEventListener("click", () => {
+    const isOpen = navLinks.classList.toggle("open");
+
+    navToggle.setAttribute("aria-expanded", String(isOpen));
+    navSymbol.textContent = isOpen ? "✕" : "☰";
+  });
+
+  navLinks.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", closeMenu);
+  });
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") {
+      closeMenu();
+    }
+  });
+
+  document.addEventListener("click", event => {
+    if (!event.target.closest(".wedding-nav")) {
+      closeMenu();
+    }
+  });
+</script>
+
+</body>
+</html>
