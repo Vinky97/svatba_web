@@ -949,6 +949,67 @@ body.wedding-unlocked #intro {
   margin: 0 -0.08em;
 }
 
+/* Mobil – obsah sekcí musí být vždy viditelný */
+@media (max-width: 768px) {
+  .js .reveal,
+  .js .reveal.visible {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .venue-image {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* =====================================
+   MOBILNÍ ÚPRAVA SVATEBNÍ ANIMACE
+===================================== */
+
+@media (max-width: 600px) {
+
+  /* Monogram M & P */
+  #intro .intro-monogram {
+    width: min(42vw, 175px);
+    height: auto;
+    aspect-ratio: 1 / 1;
+    margin-bottom: 12px;
+  }
+
+  #intro .intro-monogram-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  /* Květiny v rozích */
+  #intro .intro-flowers {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+
+    background-image: url("kvetiny_roh.png");
+    background-size: 100% auto;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  /* Jména */
+  #intro .intro-names {
+    font-size: clamp(1.8rem, 7vw, 2.4rem);
+  }
+
+  /* Datum */
+  #intro .intro-date {
+    font-size: 1.25rem;
+    letter-spacing: 0.15em;
+  }
+
+}
+
   </style>
 </head>
 
@@ -1412,7 +1473,7 @@ const observer = new IntersectionObserver((entries) => {
   });
 
 }, {
-  threshold: 0.15
+  threshold: 0
 });
 
 document.querySelectorAll(
