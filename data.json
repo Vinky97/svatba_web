@@ -1,6 +1,6 @@
 {
   "site": {
-    "title": "Míša & Peters — Svatební pozvánka",
+    "title": "Michaela & Petr — Svatební pozvánka",
     "language": "cs",
     "theme_color": "#7C3AED",
     "hero_quote": "S radostí vás zveme na náš svatební den.",
@@ -12,8 +12,8 @@
     "welcome_text6": "S láskou"
   },
   "couple": {
-    "bride_name": "Míša",
-    "groom_name": "Peters",
+    "bride_name": "Michaela",
+    "groom_name": "Petr",
     "hashtag": "#MisaAPetr2027"
   },
   "wedding_date_iso": "2027-06-05"
