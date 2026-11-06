@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="$site_language">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>$site_title</title>
+
+  <!-- FONTY -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Script&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+ 
+ <style>
+  /* =========================
+   INTRO: ENVELOPE (2 images)
+   ========================= */
+:root{
+  --ease: cubic-bezier(.2,.9,.2,1);
+
+  /* velikost obálky: cca 2/3 obrazovky */
+  --env-size: 88vmin;
+  --env-max: 820px;
+
+  /* timing */
+  --wait-after-load: 900ms;   /* pauza po načtení obrázků */
+  --open-fade: 800ms;         /* přechod zavřená -> otevřená */
+  --letter-delay: 600ms;      /* kdy začne vyjíždět web po otevření */
+  --overlay-fade: 700ms;
+
+  /* “odkud vyjíždí dopis/web” – výřez (přibližně oblast obálky) */
+  --from-clip: inset(58% 18% 10% 18% round 18px); /* upravíš dle oka */
+}
+
+#envelopeOverlay{
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 30% 20%, #ffffff 0%, #f6efe6 55%, #efe4d7 100%);
+  transition: opacity var(--overlay-fade) ease;
+}
+
+#envelopeOverlay.hiding{
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* “stage” obálky (2/3 stránky) */
+.env-stage{
+  position: relative;
+  width: min(var(--env-max), var(--env-size), 92vw);
+  aspect-ratio: 1 / 1; /* tvoje obrázky jsou čtverec */
+  perspective: 1400px;
+}
+
+/* vrstvy obálky */
+.env-img{
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  box-shadow: 0 22px 70px rgba(0,0,0,.20);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* zavřená */
+.env-closed{
+  background-image: url("envelope-closed.png");
+  opacity: 1;
+  transition: opacity var(--open-fade) ease;
+}
+
+/* otevřená (start = neviditelná) */
+.env-open{
+  background-image: url("envelope-open.png");
+  opacity: 0;
+  transition: opacity var(--open-fade) ease;
+}
+
+/* ve fázi opening přefadeujeme */
+.env-stage.opening .env-closed{ opacity: 0; }
+.env-stage.opening .env-open{ opacity: 1; }
+
+/* volitelné tlačítko “přeskočit” */
+.skip-btn{
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 5;
+  border: none;
+  background: rgba(255,255,255,.75);
+  padding: 8px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: "Libre Baskerville", serif;
+  font-size: 12px;
+}
+
+/* =========================
+   PAGE REVEAL (slides out)
+   ========================= */
+#page{
+  opacity: 0;
+  transform: translateY(80px) scale(.92);
+  clip-path: var(--from-clip); /* vypadá to jako že je uvnitř obálky */
+  transition:
+    opacity 900ms ease,
+    transform 900ms var(--ease),
+    clip-path 900ms var(--ease);
+  will-change: transform, opacity, clip-path;
+}
+
+/* během vyjíždění */
+body.revealing #page{
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  clip-path: inset(0 0 0 0 round 0px); /* rozbalí se přes celou stránku */
+}
+
+/* během intro zamez scrollu */
+body.intro-lock{
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce){
+  #page, #envelopeOverlay, .env-img{ transition: none !important; }
+}
+
+
+    /* ===== HERO PŘES CELÝ DISPLEJ ===== */
+    .hero{
+      min-height:100vh;
+      background:
+        linear-gradient(
+          rgba(246,239,230,0.85),
+          rgba(246,239,230,0.85)
+        ),
+        url("kyticka.jpg");
+      background-size:cover;
+      background-position:center 25%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:40px 20px;
+    }
+
+    
+    .headline{
+     font-family:"Sacramento", cursive;
+     font-size:90px;           /* 👈 větší */
+     color:var(--burgundy);
+     margin-bottom:18px;
+     line-height:1;            /* 👈 hezky “podpisově” */
+     letter-spacing:1px;
+    }
+
+
+    .names{
+      font-size:36px;
+      color:var(--burgundy);
+      margin-bottom:20px;
+    }
+
+    .names span{
+      margin:0 10px;
+    }
+
+    .countdown{
+      font-size:18px;
+      color:var(--muted);
+      margin-bottom:30px;
+    }
+
+    .countdown strong{
+      font-size:34px;
+      color:var(--burgundy);
+    }
+
+    .when-where{
+      font-size:16px;
+      line-height:1.7;
+    }
+
+    .when-where strong{
+      color:var(--burgundy);
+    }
+
+    /* ===== OBSAH POD HERO ===== */
+    .content{
+      max-width:900px;
+      margin:80px auto;
+      padding:0 20px;
+    }
+
+    h2{
+      text-transform:uppercase;
+      letter-spacing:2px;
+      font-size:18px;
+      color:var(--burgundy);
+      margin-bottom:16px;
+    }
+
+    p{
+      line-height:1.7;
+      margin:8px 0;
+    }
+
+    a{
+      color:var(--burgundy);
+      text-decoration:none;
+    }
+
+    a:hover{
+      text-decoration:underline;
+    }
+
+    @media (max-width:600px){
+      .headline{font-size:42px}
+      .names{font-size:28px}
+    }
+    
+  </style>
+</head>
+
+<body>
+
+<!-- ENVELOPE INTRO OVERLAY -->
+<div id="envelopeOverlay" aria-label="Svatební pozvánka - animace obálky">
+  <div class="env-stage" id="envStage">
+    <!-- zavřená obálka -->
+    <div class="env-img env-closed" aria-hidden="true"></div>
+
+    <!-- otevřená obálka (zatím skrytá, jen se přefadeuje) -->
+    <div class="env-img env-open" aria-hidden="true"></div>
+
+    <!-- volitelné: když chceš možnost přeskočit čekání -->
+    <button class="skip-btn" id="skipIntro" type="button" aria-label="Přeskočit animaci">Přeskočit</button>
+  </div>
+</div>
+``
+<div id="page"></div>
+</div>
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <div class="headline">Budeme se brát</div>
+
+      <div class="names">
+        $bride_name <span>&amp;</span> $groom_name
+      </div>
+
+      <div class="countdown">
+        Zbývá <strong id="days" data-date="$wedding_date_iso">–</strong> dní
+      </div>
+
+      <div class="when-where">
+        <strong>$wedding_date_display</strong><br>
+        Obřad $wedding_ceremony_time<br>
+        $ceremony_name
+      </div>
+    </div>
+  </section>
+
+  <!-- OBSAH -->
+  <section class="content">
+    <h2>Místa</h2>
+
+    <p>
+      <strong>Obřad</strong><br>
+      $ceremony_name<br>
+      $ceremony_address<br>
+      <a href="https://www.google.com/maps/search/?api=1&query=$ceremony_map_query">Zobrazit mapu</a>
+    </p>
+
+    <p>
+      <strong>Hostina</strong><br>
+      $reception_name<br>
+      $reception_address<br>
+      <a href="https://www.google.com/maps/search/?api=1&query=$reception_map_query">Zobrazit mapu</a>
+    </p>
+
+    <h2>RSVP</h2>
+    <p>Prosíme potvrdit účast $rsvp_deadline_display.</p>
+    <a href="https://eur02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fforms.gle%2FQ1tV5g5Vm5uk8DV87&data=05%7C02%7Cmichaela.vinklarkova%40knorr-bremse.com%7C45e60444564d463b115f08de9af03b07%7C66f6821e0a304a068b8b901bbfd2bc60%7C0%7C0%7C639118554548489240%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C80000%7C%7C%7C&sdata=afjQU6VcbxFkCf1woEY1samtkVy%2FzZdfr055ifeD7KE%3D&reserved=0">Klikni sem pro potvrzení účasti.</a>
+  </section>
+
+ 
+ <script>
+  //Obálka
+window.addEventListener("load", () => {
+  const overlay = document.getElementById("envelopeOverlay");
+  const stage = document.getElementById("envStage");
+  const skip = document.getElementById("skipIntro");
+
+  const imagesToLoad = [
+    "envelope-closed.png",
+    "envelope-open.png"
+  ];
+
+  let started = false;
+
+  const startSequence = async () => {
+    if (started) return;
+    started = true;
+
+    // 1) krátká pauza po načtení (ať si uživatel obálku prohlédne)
+    await new Promise(r => setTimeout(r, 700));
+
+    // 2) otevření = přefade closed -> open
+    stage.classList.add("opening");
+
+    // 3) až je obálka “otevřená”, začne vyjíždět web
+    setTimeout(() => {
+      document.body.classList.add("revealing");
+    }, 800 + 450); // open-fade + letter-delay
+
+    // 4) schovat overlay až po vyjetí
+    setTimeout(() => {
+      overlay.classList.add("hiding");
+    }, 800 + 450 + 800);
+
+    setTimeout(() => {
+      overlay.style.display = "none";
+      document.body.classList.remove("intro-lock");
+    }, 800 + 450 + 800 + 700);
+  };
+
+  // preload obrázků (aby se nic neotevíralo předčasně)
+  const preload = (src) => new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = resolve;
+    img.onerror = reject;
+    img.src = src;
+  });
+
+  // zamknout scroll během intro
+  document.body.classList.add("intro-lock");
+
+  Promise.all(imagesToLoad.map(preload))
+    .then(startSequence)
+    .catch((e) => {
+      console.warn("Intro images failed to load:", e);
+      // když by něco selhalo, radši ukázat web bez intro
+      overlay.style.display = "none";
+      document.body.classList.add("revealing");
+      document.body.classList.remove("intro-lock");
+    });
+
+  // volitelné: možnost přeskočit
+  if (skip) skip.addEventListener("click", () => {
+    // okamžitě ukázat web
+    overlay.style.display = "none";
+    document.body.classList.add("revealing");
+    document.body.classList.remove("intro-lock");
+  });
+});
+
+ //✅ SPRÁVNÉ ODPOČÍTÁVÁNÍ
+ 
+  function parseISODateToLocalMidnight(iso) {
+    if (!iso) return null;
+    const clean = String(iso).trim();
+    if (clean.startsWith("$")) return null; // nenahrazené
+
+    const [y, m, d] = clean.split("-").map(Number);
+    if (!y || !m || !d) return null;
+
+    return new Date(y, m - 1, d); // lokální půlnoc
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const daysEl = document.getElementById("days");
+    if (!daysEl) return;
+
+    const targetRaw = daysEl.dataset.date; // 👈 bere z data-date=""
+    console.log("TARGET RAW =", targetRaw);
+
+    const wedding = parseISODateToLocalMidnight(targetRaw);
+
+    if (!wedding) {
+      daysEl.innerText = "—";
+      console.warn("Countdown: wedding_date_iso missing/invalid:", targetRaw);
+      return;
+    }
+
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    wedding.setHours(0,0,0,0);
+
+    const oneDay = 24 * 60 * 60 * 1000;
+    const diffDays = Math.ceil((wedding - today) / oneDay);
+
+    daysEl.innerText = diffDays >= 0 ? diffDays : 0;
+  });
+</script>
+
+
+</body>
+</html>

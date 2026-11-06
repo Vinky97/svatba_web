@@ -5,7 +5,7 @@ from urllib.parse import quote
 
 
 BASE_DIR = Path(__file__).resolve().parent
-TEMPLATE_FILE = BASE_DIR / "templates" / "index_template.html"
+TEMPLATE_FILE = BASE_DIR / "templates" / "svatebni_web_se_zamcenim.html"
 DATA_FILE = BASE_DIR / "data.json"
 OUT_DIR = BASE_DIR / "dist"
 OUT_FILE = OUT_DIR / "index.html"
