@@ -1108,7 +1108,17 @@ body.wedding-unlocked #intro {
     left: 62px;
   }
 }
-
+/* TEST – všechny obsahové sekce viditelné */
+#page .reveal,
+#page .reveal.visible,
+#page .venue-image,
+#page .venue-image.visible {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  animation: none !important;
+  transition: none !important;
+}
   </style>
 </head>
 
