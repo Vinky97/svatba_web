@@ -1668,6 +1668,37 @@ document.querySelectorAll(
     }
   });
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
 
+  if (window.innerWidth > 768) return;
+
+  const sections = [
+    "Doprava",
+    "Dresscode",
+    "Dary",
+    "Dotazník",
+    "Kontakty",
+    "FAQ"
+  ];
+
+  const results = sections.map(id => {
+    const el = document.getElementById(id);
+
+    if (!el) return id + ": CHYBÍ";
+
+    const css = getComputedStyle(el);
+    const rect = el.getBoundingClientRect();
+
+    return id + ": " +
+      "display=" + css.display +
+      ", opacity=" + css.opacity +
+      ", výška=" + Math.round(rect.height);
+  });
+
+  alert(results.join("\n"));
+
+});
+</script>
 </body>
 </html>
