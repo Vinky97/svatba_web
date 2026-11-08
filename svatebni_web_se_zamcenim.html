@@ -1669,36 +1669,45 @@ document.querySelectorAll(
   });
 </script>
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+<script>
+(function () {
 
-  if (window.innerWidth > 768) return;
+  function diagnostika() {
 
-  const sections = [
-    "Doprava",
-    "Dresscode",
-    "Dary",
-    "Dotazník",
-    "Kontakty",
-    "FAQ"
-  ];
+    const sections = [
+      "Doprava",
+      "Dresscode",
+      "Dary",
+      "Dotazník",
+      "Kontakty",
+      "FAQ"
+    ];
 
-  const results = sections.map(id => {
-    const el = document.getElementById(id);
+    const results = sections.map(id => {
+      const el = document.getElementById(id);
 
-    if (!el) return id + ": CHYBÍ";
+      if (!el) return id + ": CHYBÍ";
 
-    const css = getComputedStyle(el);
-    const rect = el.getBoundingClientRect();
+      const css = getComputedStyle(el);
+      const rect = el.getBoundingClientRect();
 
-    return id + ": " +
-      "display=" + css.display +
-      ", opacity=" + css.opacity +
-      ", výška=" + Math.round(rect.height);
-  });
+      return id + ": " +
+        "display=" + css.display +
+        ", opacity=" + css.opacity +
+        ", výška=" + Math.round(rect.height);
+    });
 
-  alert(results.join("\n"));
+    alert(results.join("\n"));
+  }
 
-});
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", diagnostika);
+  } else {
+    diagnostika();
+  }
+
+})();
+</script>
 </script>
 </body>
 </html>
