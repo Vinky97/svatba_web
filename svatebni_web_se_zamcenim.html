@@ -1119,7 +1119,28 @@ body.wedding-unlocked #intro {
     left: 62px;
   }
 }
+/* OPRAVA 1 – Bezpečné zobrazení obsahu na mobilu */
 
+@media (max-width: 768px) {
+
+  #page .section-block,
+  #page .section-block.reveal,
+  #page .section-block.reveal.visible {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  #page .transport-grid,
+  #page .transport-card,
+  #page .contacts-grid,
+  #page .contact-card {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+}
   </style>
 </head>
 
