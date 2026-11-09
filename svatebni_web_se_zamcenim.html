@@ -40,37 +40,33 @@
     .wedding-lock-card button:hover { background: #6d1725; }
     #wedding-lock-error { min-height: 1.5em; margin: 12px 0 0;
       color: #8b2031; font-size: .85rem; }
-    /* Přístupnost – omezení pohybu */
+    
+/* Telefony s omezením animací */
 @media (prefers-reduced-motion: reduce) {
 
-  /* Úvodní obrazovka se nezasekne */
   body.wedding-unlocked #intro {
-    animation: none !important;
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+    animation: none;
   }
 
-  /* Monogram bez animací */
-  #intro .intro-content,
-  #intro .intro-monogram,
-  #intro .intro-flowers {
-    animation: none !important;
-    transform: none !important;
+  body.wedding-unlocked #intro .intro-content,
+  body.wedding-unlocked #intro .intro-monogram,
+  body.wedding-unlocked #intro .intro-flowers {
+    opacity: 1;
+    visibility: visible;
+    animation: none;
+    transform: none;
   }
 
-  /* Veškerý obsah webu zůstane viditelný */
-  #page,
-  #page .reveal,
-  #page .venue-image,
-  #page .hero-container > * {
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: none !important;
-    animation: none !important;
-    transition: none !important;
+  body.wedding-unlocked #page {
+    animation: none;
+    opacity: 1;
   }
 }
+
+
     :root {
       --bg: #f7f3ee;
       --card-bg: #ffffff;
@@ -686,7 +682,7 @@ body.wedding-unlocked #intro {
   z-index: 1;
   pointer-events: none;
 
-  background-image: url("kvetiny-roh-pc.png");
+  background-image: url("kvetina-roh-pc.png");
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -944,6 +940,21 @@ body.wedding-unlocked #intro {
   margin: 0 -0.08em;
 }
 
+/* Mobil – obsah sekcí musí být vždy viditelný */
+@media (max-width: 768px) {
+  .js .reveal,
+  .js .reveal.visible {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .venue-image {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 /* =====================================
    MOBILNÍ ÚPRAVA SVATEBNÍ ANIMACE
 ===================================== */
@@ -967,7 +978,7 @@ body.wedding-unlocked #intro {
 
 /* Mobil – vlastní květinová dekorace */
 #intro .intro-flowers {
-  background-image: url("kvetiny-roh-mobil.png");
+  background-image: url("kvetina-roh-mobil.png");
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -1108,7 +1119,28 @@ body.wedding-unlocked #intro {
     left: 62px;
   }
 }
+/* OPRAVA 1 – Bezpečné zobrazení obsahu na mobilu */
 
+@media (max-width: 768px) {
+
+  #page .section-block,
+  #page .section-block.reveal,
+  #page .section-block.reveal.visible {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  #page .transport-grid,
+  #page .transport-card,
+  #page .contacts-grid,
+  #page .contact-card {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+}
   </style>
 </head>
 
@@ -1561,40 +1593,23 @@ window.addEventListener("wedding-unlocked", () => {
   }, 4500);
 });
 
-/* Postupné zobrazování sekcí při posouvání stránky */
+const observer = new IntersectionObserver((entries) => {
 
-const revealElements = document.querySelectorAll(
+  entries.forEach(entry => {
+
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+    }
+
+  });
+
+}, {
+  threshold: 0
+});
+
+document.querySelectorAll(
   ".reveal, .venue-image"
-);
-
-if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-
-  revealElements.forEach(el => {
-    el.classList.add("visible");
-  });
-
-} else if ("IntersectionObserver" in window) {
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        observer.unobserve(entry.target);
-      }
-    });
-  }, {
-    threshold: 0
-  });
-
-  revealElements.forEach(el => observer.observe(el));
-
-} else {
-
-  revealElements.forEach(el => {
-    el.classList.add("visible");
-  });
-
-}
+).forEach(el => observer.observe(el));
 
 
     })();
