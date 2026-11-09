@@ -244,14 +244,6 @@ transform: scale(1);
   line-height:1.8;
 }
 
-@media (max-width: 768px){
-
-  .contacts-grid{
-    grid-template-columns: 1fr;
-    gap:10px;
-  }
-
-}
 .transport-grid{
     display:flex;
     gap:80px;
@@ -386,61 +378,6 @@ html {
   scroll-margin-top: 95px;
 }
 
-/* MOBILNÍ NAVIGACE */
-@media (max-width: 900px) {
-
-  .nav-mobile-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 20px;
-  }
-
-  .nav-logo {
-    font-family: "Great Vibes", cursive;
-    font-size: 1.8rem;
-    color: #8b2031;
-  }
-
-  .nav-toggle {
-    background: transparent;
-    border: none;
-    color: #8b2031;
-    font-family: "Cormorant Garamond", serif;
-    font-size: 1.2rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0;
-    padding: 10px 20px 20px;
-    border-top: 1px solid #dfc6bf;
-    max-height: 70vh;
-    overflow-y: auto;
-  }
-
-  .nav-links.open {
-    display: flex;
-  }
-
-  .nav-links a {
-    text-align: center;
-    padding: 12px 8px;
-    border-bottom: 1px solid rgba(139,32,49,0.1);
-    font-size: 1.35rem;
-  }
-
-  .section-block[id] {
-    scroll-margin-top: 75px;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -570,91 +507,6 @@ html {
   line-height: 1.3;
   margin: 5px 0 0;
 }
-
-/* MOBIL */
-@media (max-width: 768px) {
-
-  .wedding-timeline {
-    margin: 25px auto;
-  }
-
-  .wedding-timeline::before {
-    left: 61px;
-    top: 40px;
-    bottom: 40px;
-  }
-
-  .wedding-event {
-    grid-template-columns: 48px 58px minmax(0, 1fr);
-    column-gap: 19px;
-    min-height: 105px;
-    padding: 15px 0;
-  }
-
-  .wedding-event::before {
-    left: 56px;
-    width: 11px;
-    height: 11px;
-  }
-
-  .wedding-event:not(:last-child)::after {
-    left: 80px;
-  }
-
-  .event-icon {
-    width: 46px;
-    height: 46px;
-  }
-
-  .event-icon svg {
-    width: 25px;
-    height: 25px;
-  }
-
-  .event-time {
-    font-size: 1.45rem;
-  }
-
-  .event-info h3 {
-    font-size: 1.45rem;
-  }
-
-  .event-info p {
-    font-size: 1.1rem;
-  }
-}
-
-@media (max-width: 768px) {
-
-  .transport-grid {
-    flex-direction: column;
-    gap: 25px;
-    margin-top: 25px;
-  }
-
-  .content {
-    padding: 0 18px;
-  }
-
-  .section-block {
-    padding: 30px 5px;
-  }
-
-  h2 {
-    font-size: 1.7rem;
-    letter-spacing: 0.12em;
-  }
-
-  .transport-card h3 {
-    font-size: 1.8rem;
-  }
-
-  .venue-image {
-    max-width: 100%;
-    height: auto;
-  }
-}
-
 
 /* ==================================
    SVATEBNÍ ÚVODNÍ ANIMACE
@@ -911,19 +763,6 @@ body.wedding-unlocked #intro {
   to { opacity: 1; }
 }
 
-/* Mobilní úprava */
-
-@media (max-width: 600px) {
-  .intro-monogram {
-    width: min(58vw, 260px);
-  }
-
-  .intro-names {
-    font-size: clamp(1.9rem, 7vw, 2.8rem);
-  }
-
-}
-
 /* Monogram nad květinami */
 #intro .intro-content {
   position: relative;
@@ -942,50 +781,6 @@ body.wedding-unlocked #intro {
   font-size: 0.45em;
   vertical-align: 0.12em;
   margin: 0 -0.08em;
-}
-
-/* =====================================
-   MOBILNÍ ÚPRAVA SVATEBNÍ ANIMACE
-===================================== */
-
-@media (max-width: 600px) {
-
-  /* Monogram M & P */
-  #intro .intro-monogram {
-    width: min(42vw, 175px);
-    height: auto;
-    aspect-ratio: 1 / 1;
-    margin-bottom: 12px;
-  }
-
-  #intro .intro-monogram-img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-
-
-/* Mobil – vlastní květinová dekorace */
-#intro .intro-flowers {
-  background-image: url("kvetiny-roh-mobil.png");
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-
-
-  /* Jména */
-  #intro .intro-names {
-    font-size: clamp(1.8rem, 7vw, 2.4rem);
-  }
-
-  /* Datum */
-  #intro .intro-date {
-    font-size: 1.25rem;
-    letter-spacing: 0.15em;
-  }
-
 }
 
 /* ==================================
@@ -1052,73 +847,6 @@ body.wedding-unlocked #intro {
   left: 125px;
 }
 
-/* ==================================
-   MOBILNÍ HARMONOGRAM
-================================== */
-
-@media (max-width: 768px) {
-
-  .wedding-timeline {
-    margin: 20px auto;
-  }
-
-  .wedding-event {
-    grid-template-columns: 40px 53px minmax(0, 1fr);
-    column-gap: 14px;
-    min-height: 85px;
-    padding: 12px 0;
-  }
-
-  .event-icon {
-    width: 38px;
-    height: 38px;
-  }
-
-  .event-icon svg {
-    width: 21px;
-    height: 21px;
-  }
-
-  .event-time {
-    font-size: 1.2rem;
-  }
-
-  .event-info h3 {
-    font-size: 1.25rem;
-  }
-
-  .event-info p {
-    font-size: 1rem;
-    line-height: 1.35;
-  }
-
-  .wedding-timeline::before {
-    left: 49px;
-    top: 35px;
-    bottom: 35px;
-  }
-
-  .wedding-event::before {
-    left: 44px;
-    width: 11px;
-    height: 11px;
-  }
-
-  .wedding-event:not(:last-child)::after {
-    left: 62px;
-  }
-}
-/* TEST – všechny obsahové sekce viditelné */
-#page .reveal,
-#page .reveal.visible,
-#page .venue-image,
-#page .venue-image.visible {
-  opacity: 1 !important;
-  visibility: visible !important;
-  transform: none !important;
-  animation: none !important;
-  transition: none !important;
-}
   </style>
 </head>
 
