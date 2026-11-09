@@ -674,17 +674,22 @@ body.wedding-unlocked #intro {
 /* Květiny v rozích */
 
 
+
+/* Květiny na počítači */
 .intro-flowers {
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background-image: url("kvetiny-roh.png");
-  background-size: 100% 100%;
+
+  background-image: url("kvetiny-roh-pc.png");
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+
   animation: flowersAppear 2s ease both;
 }
+
 
 
 /* Hlavní obsah */
@@ -915,20 +920,6 @@ body.wedding-unlocked #intro {
 
 }
 
-/* Květiny přes celou úvodní obrazovku */
-#intro .intro-flowers {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  pointer-events: none;
-  background-image: url("kvetiny-roh.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-}
-
 /* Monogram nad květinami */
 #intro .intro-content {
   position: relative;
@@ -949,6 +940,207 @@ body.wedding-unlocked #intro {
   margin: 0 -0.08em;
 }
 
+/* Mobil – obsah sekcí musí být vždy viditelný */
+@media (max-width: 768px) {
+  .js .reveal,
+  .js .reveal.visible {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .venue-image {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* =====================================
+   MOBILNÍ ÚPRAVA SVATEBNÍ ANIMACE
+===================================== */
+
+@media (max-width: 600px) {
+
+  /* Monogram M & P */
+  #intro .intro-monogram {
+    width: min(42vw, 175px);
+    height: auto;
+    aspect-ratio: 1 / 1;
+    margin-bottom: 12px;
+  }
+
+  #intro .intro-monogram-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+
+/* Mobil – vlastní květinová dekorace */
+#intro .intro-flowers {
+  background-image: url("kvetiny-roh-mobil.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+
+  /* Jména */
+  #intro .intro-names {
+    font-size: clamp(1.8rem, 7vw, 2.4rem);
+  }
+
+  /* Datum */
+  #intro .intro-date {
+    font-size: 1.25rem;
+    letter-spacing: 0.15em;
+  }
+
+}
+
+/* ==================================
+   JEMNĚJŠÍ A MENŠÍ HARMONOGRAM
+================================== */
+
+/* Celková šířka */
+.wedding-timeline {
+  max-width: 680px;
+  margin: 30px auto;
+}
+
+/* Jednotlivé události */
+.wedding-event {
+  grid-template-columns: 75px 75px minmax(0, 1fr);
+  column-gap: 28px;
+  min-height: 95px;
+  padding: 12px 0;
+}
+
+/* Kulaté ikony */
+.event-icon {
+  width: 70px;
+  height: 70px;
+}
+
+.event-icon svg {
+  width: 32px;
+  height: 32px;
+}
+
+/* Časy */
+.event-time {
+  font-size: 1.65rem;
+}
+
+/* Názvy událostí */
+.event-info h3 {
+  font-size: 1.55rem;
+}
+
+/* Popisky */
+.event-info p {
+  font-size: 1.15rem;
+  line-height: 1.4;
+}
+
+/* Svislá linka */
+.wedding-timeline::before {
+  left: 96px;
+  top: 45px;
+  bottom: 45px;
+}
+
+/* Tečky na časové ose */
+.wedding-event::before {
+  left: 90px;
+  width: 13px;
+  height: 13px;
+}
+
+/* Oddělovací linky */
+.wedding-event:not(:last-child)::after {
+  left: 125px;
+}
+
+/* ==================================
+   MOBILNÍ HARMONOGRAM
+================================== */
+
+@media (max-width: 768px) {
+
+  .wedding-timeline {
+    margin: 20px auto;
+  }
+
+  .wedding-event {
+    grid-template-columns: 40px 53px minmax(0, 1fr);
+    column-gap: 14px;
+    min-height: 85px;
+    padding: 12px 0;
+  }
+
+  .event-icon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .event-icon svg {
+    width: 21px;
+    height: 21px;
+  }
+
+  .event-time {
+    font-size: 1.2rem;
+  }
+
+  .event-info h3 {
+    font-size: 1.25rem;
+  }
+
+  .event-info p {
+    font-size: 1rem;
+    line-height: 1.35;
+  }
+
+  .wedding-timeline::before {
+    left: 49px;
+    top: 35px;
+    bottom: 35px;
+  }
+
+  .wedding-event::before {
+    left: 44px;
+    width: 11px;
+    height: 11px;
+  }
+
+  .wedding-event:not(:last-child)::after {
+    left: 62px;
+  }
+}
+/* OPRAVA 1 – Bezpečné zobrazení obsahu na mobilu */
+
+@media (max-width: 768px) {
+
+  #page .section-block,
+  #page .section-block.reveal,
+  #page .section-block.reveal.visible {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  #page .transport-grid,
+  #page .transport-card,
+  #page .contacts-grid,
+  #page .contact-card {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+}
   </style>
 </head>
 
@@ -1202,7 +1394,7 @@ body.wedding-unlocked #intro {
           <p>Z důvodů plánu konání obřadu venku, nebude využito pro parkování hlavní parkoviště areálu. Můžete však využít parkování na druhém parkovišti v okolí sýpek. Od hlavního parkoviště budete navedeni pomocí šipek. </p>
     </div>
       </div>
-
+</div>
       <hr class="section-divider">
 
       <div class="section-block reveal" id="Dresscode">
@@ -1412,7 +1604,7 @@ const observer = new IntersectionObserver((entries) => {
   });
 
 }, {
-  threshold: 0.15
+  threshold: 0
 });
 
 document.querySelectorAll(
